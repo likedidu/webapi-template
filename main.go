@@ -13,8 +13,8 @@ import (
 )
 
 var whitelist = map[string]bool{
-	"raw.githubusercontent.com":  true,
-	"gist.githubusercontent.com": true,
+	"raw.githubusercontent.com":  false,
+	"gist.githubusercontent.com": false,
 }
 
 var functions = template.FuncMap{
