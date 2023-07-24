@@ -10,7 +10,7 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o /app/webapi-template .
+RUN go build -ldflags="-w -s" -o /app/webapi-template main.go
 
 FROM scratch
 
