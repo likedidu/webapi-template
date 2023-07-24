@@ -1,13 +1,23 @@
-FROM golang:latest
+FROM golang:1.20.3-alpine as builder
 
-ENV PORT 3000
+ENV CGO_ENABLED=0
 
 WORKDIR /app
 
+COPY go.mod go.sum ./
+
+RUN go mod download
+
 COPY . .
 
-RUN go build -o main .
+RUN go build -o /app/webapi-template .
 
-ENTRYPOINT ["./main", "0.0.0.0:3000"]
+FROM scratch
+
+WORKDIR /app
+
+COPY --from=builder /app/webapi-template /app/webapi-template
 
 EXPOSE 3000
+
+CMD [ "./webapi-template", "0.0.0.0:3000" ]
