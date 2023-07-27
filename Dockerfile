@@ -10,13 +10,13 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -ldflags="-w -s" -o /app/webapi-template main.go
+RUN go build -ldflags="-w -s" -o /app/webapi-template .
 
 FROM scratch
 
 WORKDIR /app
 
-COPY --from=builder /app/webapi-template /app/webapi-template
+COPY --from=builder /app/webapi-template .
 
 EXPOSE 3000
 

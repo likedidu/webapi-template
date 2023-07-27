@@ -12,10 +12,10 @@ import (
 	"text/template"
 )
 
-// var whitelist = map[string]bool{
-// 	"raw.githubusercontent.com":  false,
-// 	"gist.githubusercontent.com": false,
-// }
+var whitelist = map[string]bool{
+	"raw.githubusercontent.com":  true,
+	"gist.githubusercontent.com": true,
+}
 
 var functions = template.FuncMap{
 	"encodeUrl": func(text string) string {
@@ -118,11 +118,11 @@ func main() {
 				return
 			}
 
-// 			if !whitelist[templateUrl.Host] {
-// 				http.Error(writer, "Template "+templateUrl.String()+" unavailable", http.StatusForbidden)
+			if !whitelist[templateUrl.Host] {
+				http.Error(writer, "Template "+templateUrl.String()+" unavailable", http.StatusForbidden)
 
-// 				return
-// 			}
+				return
+			}
 
 			resp, err := http.Get(templateUrl.String())
 			if err != nil {
